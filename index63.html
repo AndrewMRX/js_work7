@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пример 63</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function createAuthString(host, clientId, scope) {
+      return `${host}/login/oauth/authorize?client_id=${clientId}&scope=${scope}`;  
+    }
+
+    function isValidId(stringId) {
+      let validValue = true;
+      if ( (stringId.length < 2) || (stringId.length > 39) ){
+        validValue = false;
+      }
+      for (let i = 0; i < stringId.length; i++) {
+        if ( (stringId[i] >= '\u0030' && stringId[i] <= '\u0039') ||
+             (stringId[i] >= '\u0041' && stringId[i] <= '\u005A') ||
+             (stringId[i] >= '\u0061' && stringId[i] <= '\u007A') ||
+             stringId[i] == '\u002D' ){
+               
+             } else {
+               validValue = false; break;
+             }
+      }
+      if (stringId[0] == '\u002D' || stringId[stringId.length - 1] == '\u002D'){
+        validValue = false;
+      }
+      return validValue;
+    }
+
+    let clientId = prompt('Веедите ваш ID','AndrewMRX');
+
+    if (isValidId(clientId) == false){
+      clientId = 'AndrewMRX';
+    }
+
+    console.log (createAuthString('https://github.com',clientId,'repo,user') );
+  </script>
+</body>
+</html>

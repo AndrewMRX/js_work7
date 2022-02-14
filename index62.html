@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пример 62</title>
+</head>
+<body>
+  <script type="text/javascript">
+    const mult = (x,y) => x * y;
+    const x = prompt('Please, enter "x" value.', 0);
+    const y = prompt('Please, enter "y" value.', 0);
+    const string = `The multiplying of ${x} and ${y} is ${mult(x,y)}.`;
+
+    let validx;
+    let validy;
+
+    //Фунуция проверки валидности введённых данных.
+    function isValid(n,nameofn) {
+
+      let res;
+      let nIsNum = true;
+      let ndots = 0;
+      //==проверка на пробелы==//
+        let spaceDetector = false;
+
+       for (i = 0; i < n.length; i++) {
+          if (n[i] == '\u0020') { spaceDetector = true; }
+        }
+       //==проверка на пробелы==end//
+
+        if (n[0] != '\u002D') {
+
+          if (n.length > 2) {
+           for (let i = 2; i < n.length; i++) {
+             if ((n[i] < '\u0030' || n[i] > '\u0039') && n[i] != '\u002e') { nIsNum = false; }
+           }
+         }
+         if (n[0] < '\u0030' || n[0] > '\u0039') { nIsNum = false; }
+         if ((n[1] < '\u0030' || n[1] > '\u0039') && n[1] != '\u002e') { nIsNum = false; }
+
+        }
+
+       if (n[0] == '\u002D') {
+
+          if (n.length > 3) {
+           for (let i = 3; i < n.length; i++) {
+              if ((n[i] < '\u0030' || n[i] > '\u0039') && n[i] != '\u002e') { nIsNum = false; }
+            }
+          } else if (n.length == 1) { nIsNum = false; }
+          if (n[1] < '\u0030' || n[1] > '\u0039') { nIsNum = false; }
+          if ((n[2] < '\u0030' || n[2] > '\u0039') && n[2] != '\u002e') { nIsNum = false; }
+
+        }
+
+        //проверка на 1 точку.
+
+        for (let i = 0; i < n.length; i++) {
+         if (n[i] == '\u002e') { ndots++; }
+       }
+
+        if (ndots > 1) { nIsNum = false; }
+
+
+       res = (n == '') ? 'You do not insert a value of "' + nameofn + '".' :
+
+       (spaceDetector == true) ? 'Please, do not use the space bar.' :
+
+        (((n[0] == '\u0030' && n[1] !== '\u002e' && n.length > 1) && (n[0] != '\u002D'))) ? 'Please, ' +
+        'enter a value of "' + nameofn + '" without leading zeros.' :
+
+        (((n[1] == '\u0030' && n[2] !== '\u002e' && n.length > 2) && (n[0] == '\u002D'))) ? 'Please, ' +
+        'enter a value of "' + nameofn + '" without leading zeros.' :
+
+        (nIsNum == false) ? '"' + nameofn + '" is not a number.' :
+
+       (+n + 1 == Infinity) ? '"' + nameofn + '" exceeds the maximum value for JavaScript' +
+       ' which is approximately equal to 1.79E+308' : 'valid';
+       return res;
+    }
+
+    validx = isValid(x,'x');
+    validy = isValid(y,'y');
+
+    if (validx != 'valid'){
+      alert(validx);
+    } 
+    else if (validy != 'valid'){
+      alert(validy);
+    } else {
+      alert(string + '\nThe result is duplicated in the console.')
+      console.log(string);
+    }
+  </script>
+</body>
+</html>
