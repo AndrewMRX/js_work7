@@ -37,6 +37,9 @@
 
     if (isValidId(clientId) == false){
       clientId = 'AndrewMRX';
+      alert('Некорректный ID, сгенерирована ссылка по умолчанию и выведена в консоль.');
+    } else {
+      alert('Ссылка сгенерирована и выведена в консоль.');
     }
 
     console.log (createAuthString('https://github.com',clientId,'repo,user') );
